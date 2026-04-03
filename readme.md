@@ -8,7 +8,7 @@ A simple selfhosted html file that Fuses together Nexus and TheBlueAlliance into
 
 ## Acknowledgements
 
- - [Nexus](hhttps://frc.nexus/)
+ - [Nexus](https://frc.nexus/)
  - [The Blue Alliance ](https://thebluealliance.com/)
  - [ Pulse - Pit Display](https://pulsefrc.app/)
  - [Team 88 TJ²](https://www.tj2.org/)
