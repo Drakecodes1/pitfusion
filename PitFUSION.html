@@ -1,14 +1,12 @@
 <!-- PitFUSION Created by Mike King on Team 88 -->
-<!DOCTYPE html>
 <!-- ============================================================
-     PitFUSION CONFIGURATION — EDIT KEYS HERE
+     Configuration is in config.js — edit that file for API keys
      ============================================================ -->
+<!DOCTYPE html>
+<script src="config.js"></script>
 <script>
-// ── API Keys ─────────────────────────────────────────────────
-const NEXUS_KEY = 'YOUR_NEXUS_API_KEY';
-const TBA_KEY   = 'YOUR_TBA_API_KEY';
 // ── Version ──────────────────────────────────────────────────
-const VERSION   = 'V1.2.1';
+const VERSION = 'V1.3.8';
 // ─────────────────────────────────────────────────────────────
 </script>
 <html lang="en">
@@ -928,6 +926,52 @@ body.pit-xl .rt th{ font-size:var(--fs-pit) !important; }
 .played-l{color:var(--red);text-align:center;min-width:28px}
 .played-t{color:var(--text-dim);text-align:center;min-width:28px}
 
+/* EPA OVERLAY */
+#epa-overlay{position:fixed;inset:0;z-index:5000;background:var(--bg);display:none;flex-direction:column}
+#epa-overlay.show{display:flex}
+#epa-overlay .epa-hdr{height:var(--hdr-h);background:var(--surface);border-bottom:3px solid var(--border);display:flex;align-items:center;padding:0 var(--pad);gap:16px;flex-shrink:0}
+#epa-overlay .epa-title{font-family:var(--fd);font-size:var(--fs-hdr);font-weight:900;color:var(--text)}
+#epa-overlay .epa-team-num{font-family:var(--fd);font-size:var(--fs-hdr);font-weight:900;color:var(--accent)}
+#epa-overlay .epa-close{margin-left:auto;background:var(--surface2);border:2px solid var(--border2);border-radius:var(--r);color:var(--text-dim);font-family:var(--fd);font-size:var(--fs-lbl);font-weight:700;padding:4px 14px;cursor:pointer;transition:all .15s}
+#epa-overlay .epa-close:hover{color:var(--text);border-color:var(--text-mid)}
+#epa-overlay .epa-body{flex:1;overflow-y:auto;padding:var(--pad);display:flex;flex-direction:column;gap:16px}
+.epa-bar-row{display:grid;grid-template-columns:180px 1fr 60px;align-items:center;gap:12px}
+.epa-bar-label{font-family:var(--fd);font-size:var(--fs-lbl);font-weight:700;color:var(--text-mid);text-align:right}
+.epa-bar-track{height:28px;background:var(--surface2);border-radius:4px;overflow:hidden;position:relative}
+.epa-bar-fill{height:100%;border-radius:4px;transition:width .4s ease}
+.epa-bar-val{font-family:var(--fd);font-size:var(--fs-lbl);font-weight:900;color:var(--text)}
+.epa-section-hdr{font-family:var(--fd);font-size:var(--fs-sm);font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--text-dim);padding-bottom:6px;border-bottom:2px solid var(--border)}
+.epa-loading{font-family:var(--fd);font-size:var(--fs-lbl);color:var(--text-dim);text-align:center;padding:40px}
+.epa-err{font-family:var(--fd);font-size:var(--fs-lbl);color:var(--red);text-align:center;padding:40px}
+/* TJ2 EPA overlay — fully opaque dark navy, no bleed-through */
+[data-theme="tj2"] #epa-overlay{background:#0a1628}
+[data-theme="tj2"] #epa-overlay .epa-hdr{background:#0d1e38;border-color:rgba(255,255,255,0.15)}
+/* Header text readable on dark navy */
+[data-theme="tj2"] #epa-overlay .epa-title{color:#ffffff}
+[data-theme="tj2"] #epa-overlay .epa-team-num{color:#7ec8ff}
+[data-theme="tj2"] #epa-overlay .epa-close{background:#1a2f50;border-color:rgba(255,255,255,0.3);color:#ffffff}
+[data-theme="tj2"] #epa-overlay .epa-close:hover{background:#243f68;color:#ffffff;border-color:rgba(255,255,255,0.6)}
+/* Body surfaces */
+[data-theme="tj2"] .epa-bar-track{background:rgba(255,255,255,0.1)}
+[data-theme="tj2"] .epa-bar-label,[data-theme="tj2"] .epa-bar-val{color:#eef0f8}
+[data-theme="tj2"] .epa-section-hdr{color:rgba(255,255,255,0.55);border-color:rgba(255,255,255,0.15)}
+[data-theme="tj2"] .epa-loading,[data-theme="tj2"] .epa-err{color:rgba(255,255,255,0.6)}
+/* Chart cards */
+[data-theme="tj2"] #epa-overlay [style*="background:var(--surface);"]{background:#111e35 !important;border-color:rgba(255,255,255,0.12) !important}
+/* Chart SVG elements — override css vars that resolve to wrong values on TJ2 */
+[data-theme="tj2"] #epa-overlay text{fill:rgba(255,255,255,0.5)}
+[data-theme="tj2"] #epa-overlay line,[data-theme="tj2"] #epa-overlay path.grid-line{stroke:rgba(255,255,255,0.1)}
+/* TJ2 — toggle button and season label in EPA overlay */
+/* EPA toggle button states */
+.epa-toggle-btn-cls[data-active="0"]{background:var(--surface2);border:2px solid var(--border2);color:var(--text-dim);border-radius:var(--r)}
+.epa-toggle-btn-cls[data-active="1"]{background:rgba(0,212,255,.15);border:2px solid var(--accent);color:var(--accent);border-radius:var(--r)}
+.epa-ev-count{font-family:var(--fd);font-size:var(--fs-sm);color:var(--text-dim)}
+/* TJ2 overrides */
+[data-theme="tj2"] .epa-toggle-btn-cls[data-active="0"]{background:#1a2f50;border-color:rgba(255,255,255,0.3);color:#eef0f8}
+[data-theme="tj2"] .epa-toggle-btn-cls[data-active="1"]{background:rgba(126,200,255,0.15);border-color:#7ec8ff;color:#7ec8ff}
+[data-theme="tj2"] .epa-ev-count{color:rgba(255,255,255,0.5)}
+[data-theme="tj2"] #epa-overlay .epa-year-lbl{color:rgba(255,255,255,0.4)}
+
 </style>
 </head>
 <body>
@@ -1071,9 +1115,23 @@ body.pit-xl .rt th{ font-size:var(--fs-pit) !important; }
     </div>
   </div>
 
+  <!-- EPA OVERLAY -->
+  <div id="epa-overlay">
+    <div class="epa-hdr">
+      <span class="epa-title">EPA Stats &mdash;</span>
+      <span class="epa-team-num" id="epa-team-display">&mdash;</span>
+      <div id="hdr-cd-epa" style="flex:1;display:flex;justify-content:center"></div>
+      <button class="epa-close" onclick="closeEpa()">✕ Close</button>
+    </div>
+    <div class="epa-body" id="epa-body">
+      <div class="epa-loading">Select a team to view EPA stats</div>
+    </div>
+  </div>
+
   <div class="footer">
     <div class="ftr-note"><span id="version-display" style="color:var(--accent);font-weight:700;margin-right:8px"></span>Nexus refreshes every 15s &middot; TBA refreshes every 30s</div>
     <div style="flex:1"></div>
+    <button class="s-btn" id="epa-btn" onclick="openEpa(C.team)" style="font-size:var(--fs-lbl);padding:5px 16px;font-family:var(--fd);font-weight:700;letter-spacing:.06em">📈 EPA Stats</button>
     <button class="s-btn" id="font-size-btn" onclick="togglePitFont()" style="font-size:var(--fs-lbl);padding:5px 16px;font-family:var(--fd);font-weight:700;letter-spacing:.06em">🔤 Bigger Text</button>
     <button class="s-btn" id="stream-toggle-btn" onclick="toggleStreamVisibility()" style="font-size:var(--fs-lbl);padding:5px 16px;font-family:var(--fd);font-weight:700;letter-spacing:.06em">📺 Hide Stream</button>
     <button class="s-btn" id="bracket-toggle-btn" onclick="toggleBracket()" style="font-size:var(--fs-lbl);padding:5px 16px;font-family:var(--fd);font-weight:700;letter-spacing:.06em">🏆 Playoff Bracket</button>
@@ -1327,7 +1385,7 @@ function setupLaunch(){
 ['setup-team','setup-event-manual'].forEach(id=>{
   document.getElementById(id).addEventListener('keydown', e=>{ if(e.key==='Enter') setupLaunch(); });
 });
-let nxData=null,tbaMx=null,tbaRk=null,tbaTi=null,tbaWc=null,tbaAlliances=null;
+let nxData=null,tbaMx=null,tbaRk=null,tbaTi=null,tbaWc=null,tbaAlliances=null,nexusPits=null;
 let stHidden=false,stIdx=0,cdTick=null,bracketView=false;
 
 // Clock
@@ -1339,6 +1397,7 @@ const ht=k=>({'X-TBA-Auth-Key':k});
 async function get(url,h){const r=await fetch(url,{headers:h});if(!r.ok)throw r.status;return r.json();}
 
 async function fNexus(){try{nxData=await get(`https://frc.nexus/api/v1/event/${C.event}`,hn(C.nexus));setLive(true);return true;}catch{setLive(false);return false;}}
+async function fPits(){try{nexusPits=await get(`https://frc.nexus/api/v1/event/${C.event}/pits`,hn(C.nexus));}catch{nexusPits=null;}}
 async function fMx(){try{tbaMx=await get(`https://www.thebluealliance.com/api/v3/event/${C.event}/matches`,ht(C.tba));return true;}catch{return false;}}
 async function fRk(){try{tbaRk=await get(`https://www.thebluealliance.com/api/v3/event/${C.event}/rankings`,ht(C.tba));return true;}catch{return false;}}
 async function fAlliances(){try{tbaAlliances=await get(`https://www.thebluealliance.com/api/v3/event/${C.event}/alliances`,ht(C.tba));return true;}catch{return false;}}
@@ -1347,10 +1406,10 @@ async function fEv(){try{const ev=await get(`https://www.thebluealliance.com/api
 
 async function init(){
   document.getElementById('hdr-team').textContent='#'+C.team;
-  await Promise.all([fNexus(),fMx(),fRk(),fAlliances(),fTi(),fEv()]);
+  await Promise.all([fNexus(),fPits(),fMx(),fRk(),fAlliances(),fTi(),fEv()]);
   document.getElementById('lo').style.display='none';
   renderAll(); startCd();
-  setInterval(async()=>{await fNexus();rQ();rMl();rAlerts();updateBumperBox();stamp();},15000);
+  setInterval(async()=>{await Promise.all([fNexus(),fPits()]);rQ();rMl();rAlerts();updateBumperBox();stamp();},15000);
   setInterval(async()=>{await Promise.all([fMx(),fRk(),fAlliances(),fTi()]);rMl();rRank();rTeam();if(bracketView)rBracket();updateBumperBox();stamp();},30000);
 }
 
@@ -1462,7 +1521,8 @@ function rQ(){
   // Alliance grid — show alliances for team's next match
   if(myNext && (myNext.redTeams?.length || myNext.blueTeams?.length)){
     const r=myNext.redTeams||[],bl=myNext.blueTeams||[];
-    html+=`<div class="a-row"><div class="a-blk bl"><div class="a-label">Blue</div>${bl.map(t=>`<div class="a-team${t===C.team?' me':''}">${e(t)}</div>`).join('')}</div><div class="vs">VS</div><div class="a-blk rd"><div class="a-label">Red</div>${r.map(t=>`<div class="a-team${t===C.team?' me':''}">${e(t)}</div>`).join('')}</div></div>`;
+    const mkAt=(t,side)=>`<div class="a-team${t===C.team?' me':''}" style="cursor:pointer" title="View EPA for ${e(t)}" onclick="openEpa('${t}')">${e(t)}</div>`;
+    html+=`<div class="a-row"><div class="a-blk bl"><div class="a-label">Blue</div>${bl.map(t=>mkAt(t,'bl')).join('')}</div><div class="vs">VS</div><div class="a-blk rd"><div class="a-label">Red</div>${r.map(t=>mkAt(t,'rd')).join('')}</div></div>`;
   }
 
   // 3-column status strip — only when actively queuing
@@ -1647,6 +1707,7 @@ function rRank(){
       const panelH=panel.clientHeight;
       panel.scrollTop=rowTop-(panelH/2)+(row.clientHeight/2);
     }
+    makeTeamsClickable(el.closest('.tp'));
   });
 }
 
@@ -1781,14 +1842,36 @@ function rAlerts(){
         </div>`;
       }).join('');
 
+  // Build a team→pit lookup from nexusPits if available
+  const pitMap={};
+  if(nexusPits){
+    // Nexus pits may be an array of pit objects or an object keyed by team
+    // Nexus pits response may be array at root, or {pits:[...]}, or {teams:{...}}
+    let pitsArr=[];
+    if(Array.isArray(nexusPits)) pitsArr=nexusPits;
+    else if(Array.isArray(nexusPits?.pits)) pitsArr=nexusPits.pits;
+    else if(Array.isArray(nexusPits?.teams)) pitsArr=nexusPits.teams;
+    else pitsArr=Object.values(nexusPits);
+    pitsArr.forEach(pit=>{
+      const t=String(pit.teamNumber||pit.team||pit.teamNum||pit.number||'');
+      // Nexus uses 'label' for the pit location string (e.g. "B4")
+      const addr=pit.label||pit.pitLocation||pit.location||pit.pitAddress||pit.address||pit.pit||pit.slot||'';
+      if(t&&addr) pitMap[t]=addr;
+    });
+  }
+
   document.getElementById('parts-content').innerHTML=parts.length===0
     ?'<div class="empty">No active parts requests</div>'
     :parts.map(p=>{
         const team=p.requestedByTeam||p.teamNumber||p.team||p.teamNum||'?';
         const body=p.parts||p.request||p.body||p.text||p.message||p.content||p.part||p.item||JSON.stringify(p);
         const t=p.postedTime?ft(new Date(p.postedTime)):(p.time?ft(new Date(p.time)):'');
+        const pitAddr=pitMap[String(team)]||'';
         return`<div style="background:var(--surface2);border:2px solid rgba(255,214,0,.3);border-left:4px solid var(--yellow);border-radius:var(--r);padding:9px 11px;margin-bottom:7px;line-height:1.5">
-          <div style="font-family:var(--fd);font-size:var(--fs-lbl);font-weight:900;color:var(--yellow);margin-bottom:4px">Team ${e(String(team))}</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+            <div style="font-family:var(--fd);font-size:var(--fs-lbl);font-weight:900;color:var(--yellow)">Team ${e(String(team))}</div>
+            ${pitAddr?`<div style="font-family:var(--fd);font-size:var(--fs-lbl);font-weight:700;background:rgba(255,214,0,.15);border:1px solid rgba(255,214,0,.4);border-radius:4px;padding:2px 8px;color:var(--yellow)">Pit ${e(pitAddr)}</div>`:''}
+          </div>
           <div style="font-size:var(--fs-body);color:var(--text);margin-bottom:${t?'4px':'0'}">${e(body)}</div>
           ${t?`<div style="font-family:var(--fm);font-size:var(--fs-sm);color:var(--text-dim)">${t}</div>`:''}
         </div>`;
@@ -2442,6 +2525,344 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const btn = document.getElementById('font-size-btn');
   if(btn) btn.textContent = pitFontXL ? '🔤 Normal Text' : '🔤 Bigger Text';
 });
+
+// ── EPA STATS OVERLAY ────────────────────────────────────────────────────────
+const epaCache   = {};
+const EPA_CACHE_MS = 30 * 60 * 1000;
+
+function getPath(obj, path){
+  return path.split('.').reduce((o,k)=>(o==null?null:o[k]), obj);
+}
+
+// Fetch with timeout + 1 automatic retry
+async function fetchWithRetry(url, timeoutMs=8000, retries=2){
+  for(let attempt=0; attempt<retries; attempt++){
+    const ctrl = new AbortController();
+    const tid  = setTimeout(()=>ctrl.abort(), timeoutMs);
+    try {
+      const r = await fetch(url, {signal: ctrl.signal});
+      clearTimeout(tid);
+      if(r.ok) return r;
+      if(r.status===429){ await new Promise(res=>setTimeout(res,2000*(attempt+1))); continue; }
+      throw new Error('HTTP '+r.status);
+    } catch(err){
+      clearTimeout(tid);
+      if(attempt===retries-1) throw err;
+      await new Promise(res=>setTimeout(res,1500*(attempt+1)));
+    }
+  }
+}
+
+function setEpaStatus(msg){
+  const b=document.getElementById('epa-body');
+  if(b) b.innerHTML=`<div class="epa-loading">${msg}</div>`;
+}
+
+async function openEpa(team){
+  if(!team) return;
+  const overlay  = document.getElementById('epa-overlay');
+  const teamDisp = document.getElementById('epa-team-display');
+  const cdSrc    = document.getElementById('hdr-cd');
+  const cdDst    = document.getElementById('hdr-cd-epa');
+  if(cdSrc&&cdDst) cdDst.innerHTML=cdSrc.innerHTML;
+
+  overlay.classList.add('show');
+  teamDisp.textContent='Team '+team;
+  setEpaStatus('Loading EPA data…');
+
+  const year     = new Date().getFullYear();
+  const cacheKey = `${team}_${year}`;
+
+  if(epaCache[cacheKey]&&(Date.now()-epaCache[cacheKey].ts<EPA_CACHE_MS)){
+    renderEpa(epaCache[cacheKey], team, year); return;
+  }
+
+  // Fetch team_year first, show progress, then fetch matches
+  try {
+    setEpaStatus('Fetching team summary…');
+    const tyResp  = await fetchWithRetry(`https://api.statbotics.io/v3/team_year/${team}/${year}`);
+    const teamYear= await tyResp.json();
+
+    setEpaStatus('Fetching match history…');
+    let matches=[];
+    try {
+      const tmResp = await fetchWithRetry(`https://api.statbotics.io/v3/team_matches?team=${team}&year=${year}&limit=200`);
+      matches = await tmResp.json();
+    } catch(e){
+      // Match history optional — render what we have
+    }
+
+    const cached={teamYear, matches, ts:Date.now()};
+    epaCache[cacheKey]=cached;
+    renderEpa(cached, team, year);
+  } catch(err){
+    const isTimeout = err.name==='AbortError'||err.message.includes('abort');
+    document.getElementById('epa-body').innerHTML=
+      `<div class="epa-err">${isTimeout?'Statbotics timed out.':'Could not load EPA data.'}<br>
+       <span style="font-size:var(--fs-sm);color:var(--text-dim)">${e(err.message||'')}</span><br>
+       <button onclick="openEpa('${team}')" style="margin-top:12px;font-family:var(--fd);font-size:var(--fs-lbl);
+         font-weight:700;padding:5px 16px;background:var(--surface2);border:2px solid var(--border2);
+         border-radius:var(--r);color:var(--text);cursor:pointer">↺ Retry</button></div>`;
+  }
+}
+
+// Draw one SVG line chart for a single series of {x,val} points
+// Draw one interactive line chart as an HTML div (not pure SVG)
+// pts: [{x, val, event, matchLabel}], eventBands: [{event, label, startX, endX}]
+function drawLineChart(id, pts, color, currentVal, eventBands){
+  if(pts.length<2) return `<div style="font-family:var(--fd);font-size:var(--fs-sm);color:var(--text-dim);padding:8px 0">Not enough match data yet — current: <b style="color:${color}">${currentVal!=null?Number(currentVal).toFixed(1):'—'}</b></div>`;
+
+  const W=680,H=160,PL=46,PR=56,PT=10,PB=26;
+  const cW=W-PL-PR, cH=H-PT-PB;
+  const n=pts.length;
+  const allV=pts.map(p=>p.val);
+  const minV=Math.min(0,...allV);
+  const maxV=Math.max(...allV,0.01);
+  const xOf=i=>PL+(n<=1?cW/2:(i/(n-1))*cW);
+  const yOf=v=>PT+cH-((v-minV)/(maxV-minV))*cH;
+
+  let svg='';
+
+  // Event band backgrounds
+  const evColors=['rgba(255,255,255,0.03)','rgba(255,255,255,0.065)'];
+  eventBands.forEach((band,bi)=>{
+    const x1=xOf(band.startX), x2=xOf(band.endX);
+    svg+=`<rect x="${x1.toFixed(1)}" y="${PT}" width="${(x2-x1).toFixed(1)}" height="${cH}" fill="${evColors[bi%2]}" />`;
+  });
+
+  // Event divider lines + labels
+  eventBands.forEach((band,bi)=>{
+    if(bi===0) return; // no line before first event
+    const x=xOf(band.startX);
+    svg+=`<line x1="${x.toFixed(1)}" y1="${PT}" x2="${x.toFixed(1)}" y2="${(PT+cH)}" stroke="var(--border2)" stroke-width="1" stroke-dasharray="3,2"/>`;
+    // Rotated event label
+    const lx=(xOf(band.startX)+xOf(band.endX))/2;
+    svg+=`<text x="${lx.toFixed(1)}" y="${(PT+8)}" font-family="var(--fd)" font-size="8" fill="var(--text-dim)" text-anchor="middle" opacity="0.7">${e(band.shortLabel||band.label)}</text>`;
+  });
+  // First event label
+  if(eventBands.length>0){
+    const b=eventBands[0];
+    const lx=(xOf(b.startX)+xOf(b.endX))/2;
+    svg+=`<text x="${lx.toFixed(1)}" y="${(PT+8)}" font-family="var(--fd)" font-size="8" fill="var(--text-dim)" text-anchor="middle" opacity="0.7">${e(b.shortLabel||b.label)}</text>`;
+  }
+
+  // Y grid
+  for(let i=0;i<=4;i++){
+    const v=minV+((maxV-minV)/4)*i;
+    const y=yOf(v);
+    svg+=`<line x1="${PL}" y1="${y.toFixed(1)}" x2="${W-PR}" y2="${y.toFixed(1)}" stroke="var(--border)" stroke-width="0.5"/>`;
+    svg+=`<text x="${PL-4}" y="${(y+3.5).toFixed(1)}" font-family="monospace" font-size="9" fill="var(--text-dim)" text-anchor="end">${v.toFixed(0)}</text>`;
+  }
+  // X labels (match index)
+  const xStep=Math.max(1,Math.floor(n/7));
+  for(let i=0;i<n;i+=xStep){
+    svg+=`<text x="${xOf(i).toFixed(1)}" y="${H-2}" font-family="monospace" font-size="9" fill="var(--text-dim)" text-anchor="middle">${i+1}</text>`;
+  }
+
+  // Area fill
+  const baseY=yOf(Math.max(minV,0));
+  const area=`M${xOf(0).toFixed(1)},${baseY.toFixed(1)} `
+    +pts.map(p=>`L${xOf(p.x).toFixed(1)},${yOf(p.val).toFixed(1)}`).join(' ')
+    +` L${xOf(n-1).toFixed(1)},${baseY.toFixed(1)} Z`;
+  svg+=`<path d="${area}" fill="${color}" fill-opacity="0.12" stroke="none"/>`;
+
+  // Line
+  const line=pts.map((p,i)=>`${i===0?'M':'L'}${xOf(p.x).toFixed(1)},${yOf(p.val).toFixed(1)}`).join(' ');
+  svg+=`<path d="${line}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`;
+
+  // Interactive dots with tooltip trigger
+  pts.forEach((p,i)=>{
+    const cx=xOf(p.x).toFixed(1), cy=yOf(p.val).toFixed(1);
+    const tip=`${e(p.matchLabel||'Match '+(i+1))}: ${Number(p.val).toFixed(2)}`;
+    svg+=`<circle cx="${cx}" cy="${cy}" r="4" fill="${color}" fill-opacity="0.0" stroke="none"
+      onmouseenter="showEpaTip(event,'${tip}')" onmouseleave="hideEpaTip()"
+      style="cursor:crosshair"/>`;
+    // Visible dot (smaller, non-interactive background)
+    svg+=`<circle cx="${cx}" cy="${cy}" r="2.5" fill="${color}" pointer-events="none"/>`;
+  });
+
+  // End value label
+  const lx=xOf(n-1), ly=yOf(pts[n-1].val);
+  svg+=`<circle cx="${lx.toFixed(1)}" cy="${ly.toFixed(1)}" r="3.5" fill="${color}" pointer-events="none"/>`;
+  if(currentVal!=null){
+    svg+=`<text x="${W-PR+4}" y="${(ly+4).toFixed(1)}" font-family="var(--fd)" font-size="11" font-weight="700" fill="${color}" text-anchor="start">${Number(currentVal).toFixed(1)}</text>`;
+  }
+
+  return `<div style="position:relative">
+    <svg id="${id}" width="100%" viewBox="0 0 ${W} ${H}" style="display:block;overflow:visible">${svg}</svg>
+  </div>`;
+}
+
+// Tooltip show/hide
+function showEpaTip(evt, text){
+  let tip=document.getElementById('epa-tip');
+  if(!tip){
+    tip=document.createElement('div');
+    tip.id='epa-tip';
+    tip.style.cssText='position:fixed;z-index:9999;pointer-events:none;background:var(--surface2);border:1px solid var(--border2);border-radius:6px;padding:5px 10px;font-family:var(--fd);font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.4)';
+    document.body.appendChild(tip);
+  }
+  tip.textContent=text;
+  tip.style.display='block';
+  tip.style.left=(evt.clientX+12)+'px';
+  tip.style.top=(evt.clientY-28)+'px';
+}
+function hideEpaTip(){
+  const tip=document.getElementById('epa-tip');
+  if(tip) tip.style.display='none';
+}
+
+// State for current-event toggle
+let epaShowCurrentOnly=false;
+
+function toggleEpaCurrentOnly(){
+  epaShowCurrentOnly=!epaShowCurrentOnly;
+  const btn=document.getElementById('epa-toggle-btn');
+  if(btn){
+    btn.textContent=epaShowCurrentOnly?'Show All Events':'Show Current Event Only';
+    btn.dataset.active=epaShowCurrentOnly?'1':'0';
+  }
+  // Re-render with same cached data
+  const teamDisp=document.getElementById('epa-team-display');
+  const team=teamDisp?.textContent.replace('Team ','').trim();
+  if(!team) return;
+  const year=new Date().getFullYear();
+  const cached=epaCache[`${team}_${year}`];
+  if(cached) renderEpa(cached, team, year);
+}
+
+function renderEpa(cached, team, year){
+  const body     = document.getElementById('epa-body');
+  const teamYear = cached.teamYear;
+  let   allMatches = (cached.matches||[])
+    .filter(m=>m.epa!=null)
+    .sort((a,b)=>(a.match_number||0)-(b.match_number||0));
+
+  const cfgFields=(typeof EPA_FIELDS!=='undefined')
+    ?(EPA_FIELDS[year]||EPA_FIELDS[Math.max(...Object.keys(EPA_FIELDS).map(Number))])
+    :null;
+
+  // Build event info from matches
+  const eventMap={};
+  allMatches.forEach(m=>{
+    const ek=m.event||m.event_key||'';
+    if(!eventMap[ek]) eventMap[ek]={key:ek,indices:[]};
+    eventMap[ek].indices.push(allMatches.indexOf(m));
+  });
+  const eventKeys=Object.keys(eventMap);
+
+  // Current event = the one matching C.event or the last event seen
+  const currentEventKey = C.event || eventKeys[eventKeys.length-1] || '';
+
+  // Filter if toggle is on
+  const matches = epaShowCurrentOnly
+    ? allMatches.filter(m=>(m.event||m.event_key||'')=== currentEventKey)
+    : allMatches;
+
+  // Re-index after filter
+  const reindexed = matches.map((m,i)=>({...m, _idx:i}));
+
+  // Build event bands for the (possibly filtered) set
+  const filteredEventMap={};
+  reindexed.forEach((m,i)=>{
+    const ek=m.event||m.event_key||'unknown';
+    if(!filteredEventMap[ek]) filteredEventMap[ek]={key:ek,startX:i,endX:i,label:ek,shortLabel:ek.replace(/^\d{4}/,'')};
+    filteredEventMap[ek].endX=i;
+  });
+  const eventBands=Object.values(filteredEventMap);
+
+  const name   =teamYear.name||teamYear.team_name||'';
+  const record =teamYear.record?`${teamYear.record.wins}W \u2013 ${teamYear.record.losses}L \u2013 ${teamYear.record.ties}T`:'';
+  const normEpa=teamYear.norm_epa!=null?Number(teamYear.norm_epa).toFixed(0):null;
+
+  let html=`<div style="background:var(--surface);border:2px solid var(--border2);border-radius:var(--r);padding:12px 16px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+    <div>
+      <div style="font-family:var(--fd);font-size:var(--fs-big);font-weight:900;color:var(--accent)">#${e(String(team))}</div>
+      ${name?`<div style="font-family:var(--fd);font-size:var(--fs-lbl);color:var(--text)">${e(name)}</div>`:''}
+    </div>
+    ${record?`<div style="font-family:var(--fd);font-size:var(--fs-lbl);color:var(--text-mid)">${e(record)}</div>`:''}
+    ${normEpa?`<div style="margin-left:auto;text-align:right"><div style="font-family:var(--fd);font-size:var(--fs-sm);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim)">Norm EPA</div><div style="font-family:var(--fd);font-size:var(--fs-big);font-weight:900;color:var(--text)">${normEpa}</div></div>`:''}
+  </div>`;
+
+  // Toggle button
+  html+=`<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+    <button id="epa-toggle-btn" onclick="toggleEpaCurrentOnly()"
+      class="s-btn epa-toggle-btn-cls" data-active="${epaShowCurrentOnly?'1':'0'}"
+      style="font-family:var(--fd);font-size:var(--fs-lbl);font-weight:700;padding:5px 14px;cursor:pointer">
+      ${epaShowCurrentOnly?'Show All Events':'Show Current Event Only'}
+    </button>
+    ${eventKeys.length>1?`<span class="epa-ev-count">${eventKeys.length} events in ${year}</span>`:''}
+  </div>`;
+
+  if(!cfgFields){
+    html+=`<div class="epa-err">No EPA_FIELDS config for ${year}. Check config.js.</div>`;
+    body.innerHTML=html; return;
+  }
+
+  if(reindexed.length===0){
+    html+=`<div style="font-family:var(--fd);font-size:var(--fs-lbl);color:var(--text-dim);text-align:center;padding:20px">No match data available yet.</div>`;
+  }
+
+  // One chart per field
+  cfgFields.forEach((f,fi)=>{
+    const pts=reindexed.map((m,i)=>{
+      const val=getPath(m, f.key);
+      const ek=m.event||m.event_key||'';
+      const comp=m.comp_level||'qm';
+      const mn=m.match_number||'?';
+      const matchLabel=`${ek.replace(/^\d{4}/,'')} ${comp==='qm'?'Qual':comp==='sf'?'SF':comp==='f'?'Final':'Match'} ${mn}`;
+      return {x:i, val, matchLabel};
+    }).filter(p=>p.val!=null&&typeof p.val==='number'&&isFinite(p.val));
+
+    const curVal=getPath(teamYear, f.key);
+    const chartId=`epa-chart-${fi}`;
+
+    html+=`<div style="background:var(--surface);border:2px solid var(--border);border-left:4px solid ${f.color};border-radius:var(--r);padding:10px 14px">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:4px">
+        <span style="font-family:var(--fd);font-size:var(--fs-lbl);font-weight:700;color:${f.color}">${e(f.label)}</span>
+        <span class="epa-year-lbl" style="font-family:var(--fd);font-size:var(--fs-sm);color:var(--text-dim)">${year} season</span>
+      </div>
+      ${drawLineChart(chartId, pts, f.color, curVal, eventBands)}
+    </div>`;
+  });
+
+  html+=`<div style="margin-top:4px;font-family:var(--fd);font-size:var(--fs-sm);color:var(--text-dim);text-align:center">
+    <a href="https://statbotics.io/team/${encodeURIComponent(String(team))}/${year}" target="_blank" style="color:var(--accent);text-decoration:none">View full profile on Statbotics \u2192</a>
+  </div>`;
+
+  body.innerHTML=html;
+}
+
+function closeEpa(){
+  hideEpaTip();
+  document.getElementById('epa-overlay').classList.remove('show');
+}
+
+// Make team numbers clickable — called after any render that produces team numbers
+function makeTeamsClickable(container){
+  if(!container) return;
+  // Rankings table — .rn elements
+  container.querySelectorAll('.rn').forEach(el=>{
+    const t=el.textContent.trim();
+    if(t && /^\d+$/.test(t)){
+      el.style.cursor='pointer';
+      el.title='View EPA stats for team '+t;
+      el.onclick=()=>openEpa(t);
+    }
+  });
+}
+
+// Mirror countdown into EPA overlay header on each tick
+const _origTickCd = typeof tickCd === 'function' ? tickCd : null;
+
+// Sync EPA header countdown on interval
+setInterval(()=>{
+  const overlay=document.getElementById('epa-overlay');
+  if(!overlay?.classList.contains('show')) return;
+  const cdSrc=document.getElementById('hdr-cd');
+  const cdDst=document.getElementById('hdr-cd-epa');
+  if(cdSrc&&cdDst) cdDst.innerHTML=cdSrc.innerHTML;
+}, 1000);
 
 // init() is called by setupLaunch() — not auto-invoked here
 </script>
