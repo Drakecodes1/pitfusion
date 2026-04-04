@@ -22,22 +22,26 @@ const TBA_KEY   = 'YOUR_TBA_KEY';
 //   label — display label shown in PitFUSION
 //   color — bar color for the chart (any CSS color)
 
+// Field paths use dot-notation into the API response.
+// team_year:  data.epa.breakdown.{field}
+// team_match: data.epa.breakdown.{field}
 const EPA_FIELDS = {
   2026: [
-    { key: 'epa.total',            label: 'Total EPA',           color: '#00d4ff' },
-    { key: 'epa.auto',             label: 'Auto EPA',            color: '#00e676' },
-    { key: 'epa.teleop',           label: 'Teleop EPA',          color: '#ffd600' },
-    { key: 'epa.endgame',          label: 'Endgame EPA',         color: '#ff6b35' },
-    { key: 'epa.rp_1',             label: 'Energized RP EPA',    color: '#a78bfa' },
-    { key: 'epa.rp_2',             label: 'Supercharged RP EPA', color: '#f472b6' },
+    { key: 'epa.breakdown.total_points',   label: 'Total EPA',           color: '#00d4ff' },
+    { key: 'epa.breakdown.auto_points',    label: 'Auto EPA',            color: '#00e676' },
+    { key: 'epa.breakdown.teleop_points',  label: 'Teleop EPA',          color: '#ffd600' },
+    { key: 'epa.breakdown.endgame_points', label: 'Endgame EPA',         color: '#ff6b35' },
+    { key: 'epa.breakdown.energized_rp',   label: 'Energized RP EPA',    color: '#a78bfa' },
+    { key: 'epa.breakdown.supercharged_rp',label: 'Supercharged RP EPA', color: '#f472b6' },
   ],
   2025: [
-    { key: 'epa.total',            label: 'Total EPA',           color: '#00d4ff' },
-    { key: 'epa.auto',             label: 'Auto EPA',            color: '#00e676' },
-    { key: 'epa.teleop',           label: 'Teleop EPA',          color: '#ffd600' },
-    { key: 'epa.endgame',          label: 'Endgame EPA',         color: '#ff6b35' },
-    { key: 'epa.rp_1',             label: 'Coral RP EPA',        color: '#a78bfa' },
-    { key: 'epa.rp_2',             label: 'Barge RP EPA',        color: '#f472b6' },
+    { key: 'epa.breakdown.total_points',   label: 'Total EPA',           color: '#00d4ff' },
+    { key: 'epa.breakdown.auto_points',    label: 'Auto EPA',            color: '#00e676' },
+    { key: 'epa.breakdown.teleop_points',  label: 'Teleop EPA',          color: '#ffd600' },
+    { key: 'epa.breakdown.endgame_points', label: 'Endgame EPA',         color: '#ff6b35' },
+    { key: 'epa.breakdown.rp_1',           label: 'Coral RP EPA',        color: '#a78bfa' },
+    { key: 'epa.breakdown.rp_2',           label: 'Barge RP EPA',        color: '#f472b6' },
   ],
-  // Add future years here following the same pattern
+  // Add future years here. Check field names at:
+  //   https://api.statbotics.io/v3/team_year/{team}/{year}  → epa.breakdown
 };
