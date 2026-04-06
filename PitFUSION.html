@@ -6,7 +6,7 @@
 <script src="config.js"></script>
 <script>
 // ── Version ──────────────────────────────────────────────────
-const VERSION = 'V1.7.0';
+const VERSION = 'V1.8.2';
 // ─────────────────────────────────────────────────────────────
 </script>
 <html lang="en">
@@ -167,10 +167,14 @@ body.custom-has-bg[data-theme="custom"] .tp{
 /* HEADER */
 .hdr{background:var(--surface);border-bottom:3px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);gap:12px;overflow:hidden}
 .hdr-l,.hdr-r{display:flex;align-items:center;gap:12px;flex-shrink:0}
-.logo{font-family:var(--fd);font-size:var(--fs-hdr);font-weight:900;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.logo{font-family:var(--fd);font-size:var(--fs-hdr);font-weight:900;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;display:flex;align-items:center}
 .logo .wm-pit{color:var(--text)}
 .logo .wm-fusion{color:var(--accent)}
 .logo em{color:var(--accent);font-style:normal}
+.logo-atom{width:.82em;height:.82em;margin-left:7px;color:var(--accent);flex-shrink:0;display:block;align-self:center}
+.setup-atom{width:.85em;height:.85em;margin-left:8px;color:var(--accent);flex-shrink:0;display:block;align-self:center}
+[data-theme="tj2"] .logo-atom,[data-theme="tj2"] .setup-atom{color:#f5c000 !important}
+[data-theme="tj2"] .hdr .logo-atom,[data-theme="tj2"] .hdr .setup-atom{color:#f5c000 !important}
 .hdiv{width:2px;height:26px;background:var(--border2);flex-shrink:0}
 .hdr-ev{font-family:var(--fd);font-size:var(--fs-hdr);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:28vw}
 .hdr-cd{flex:1;display:flex;align-items:center;justify-content:center;min-width:0;overflow:hidden}
@@ -181,7 +185,24 @@ body.custom-has-bg[data-theme="custom"] .tp{
 .cd-val.urg{color:var(--red);animation:pulsered .8s infinite alternate}
 @keyframes pulsered{from{opacity:1}to{opacity:.4}}
 .hdr-team{background:var(--surface2);border:2px solid var(--accent);border-radius:var(--r);padding:3px 14px;font-family:var(--fd);font-size:var(--fs-hdr);font-weight:900;color:var(--accent);white-space:nowrap}
+.delay-pill{border-radius:var(--r);padding:2px 10px;font-family:var(--fd);font-size:var(--fs-sm);font-weight:700;white-space:nowrap}
+.delay-pill.ontime{background:rgba(46,204,113,.15);border:1px solid rgba(46,204,113,.4);color:#2ecc71}
+.delay-pill.ahead{background:rgba(46,204,113,.15);border:1px solid rgba(46,204,113,.4);color:#2ecc71}
+.delay-pill.minor{background:rgba(255,214,0,.15);border:1px solid rgba(255,214,0,.4);color:var(--yellow)}
+.delay-pill.late{background:rgba(231,76,60,.18);border:1px solid rgba(231,76,60,.5);color:#ffffff}
 .live-pill{display:flex;align-items:center;gap:6px;font-family:var(--fd);font-size:var(--fs-sm);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim)}
+.help-btn{width:22px;height:22px;border-radius:50%;border:2px solid var(--text-dim);background:transparent;color:var(--text-dim);font-family:var(--fd);font-size:13px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;padding:0;line-height:1}
+.help-btn:hover{border-color:var(--accent);color:var(--accent)}
+[data-theme="tj2"] .help-btn{border-color:rgba(255,255,255,0.5);color:rgba(255,255,255,0.6)}
+[data-theme="tj2"] .help-btn:hover{border-color:#f5c000;color:#f5c000}
+.help-overlay{position:fixed;inset:0;z-index:8000;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center}
+.help-overlay.show{display:flex}
+.help-card{background:var(--surface);border:2px solid var(--border2);border-radius:var(--r);padding:28px 32px;max-width:520px;width:90%;position:relative}
+.help-card h2{font-family:var(--fd);font-size:var(--fs-hdr);font-weight:900;color:var(--accent);margin-bottom:14px;letter-spacing:.04em}
+.help-card p{font-family:var(--fd);font-size:var(--fs-lbl);color:var(--text);line-height:1.65;margin-bottom:10px}
+.help-card .help-close{position:absolute;top:12px;right:14px;background:transparent;border:none;color:var(--text-dim);font-size:1.3rem;cursor:pointer;line-height:1;padding:2px 6px}
+.help-card .help-close:hover{color:var(--text)}
+[data-theme="tj2"] .help-card{background:rgba(13,30,61,0.97);border-color:rgba(245,192,0,0.3)}
 .ldot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 7px var(--green);animation:blink 2s infinite}
 .ldot.off{background:var(--red);box-shadow:0 0 7px var(--red);animation:none}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
@@ -208,12 +229,12 @@ body.custom-has-bg[data-theme="custom"] .tp{
 .s-nowc{flex:1;display:flex;align-items:center;justify-content:center;font-size:var(--fs-sm);color:var(--text-dim);background:var(--surface);padding:var(--pad);text-align:center}
 
 /* QUEUING */
-.q-half{background:var(--bg);padding:var(--pad);overflow:hidden;display:flex;flex-direction:column;gap:7px}
+.q-half{background:var(--bg);padding:var(--pad);display:flex;flex-direction:column;gap:7px;padding-bottom:calc(var(--pad) + 12px)}
 .sec-lbl{font-family:var(--fd);font-size:var(--fs-lbl);font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);flex-shrink:0}
 .now-q{font-family:var(--fd);font-size:var(--fs-hero);font-weight:900;color:var(--accent);line-height:.95;letter-spacing:-.01em}
 .not-q{font-family:var(--fd);font-size:var(--fs-big);font-weight:600;color:var(--text-dim)}
-.a-row{display:grid;grid-template-columns:1fr 30px 1fr;gap:7px;align-items:center}
-.a-blk{border-radius:var(--r);padding:7px 10px;display:flex;flex-direction:column;gap:2px}
+.a-row{display:grid;grid-template-columns:1fr 30px 1fr;gap:7px;align-items:start;margin-top:6px}
+.a-blk{border-radius:var(--r);padding:10px 12px;display:flex;flex-direction:column;gap:4px}
 .a-blk.bl{background:rgba(25,118,210,.12);border:2px solid rgba(25,118,210,.5)}
 .a-blk.rd{background:rgba(198,40,40,.12);border:2px solid rgba(198,40,40,.5)}
 .a-label{font-family:var(--fd);font-size:var(--fs-sm);font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1px}
@@ -222,7 +243,7 @@ body.custom-has-bg[data-theme="custom"] .tp{
 .a-team{font-family:var(--fd);font-size:var(--fs-big);font-weight:900;line-height:1.05;color:var(--text)}
 .a-team.me{color:var(--yellow);text-shadow:0 0 14px rgba(255,214,0,.5)}
 .vs{font-family:var(--fd);font-size:var(--fs-lbl);font-weight:900;color:var(--text-dim);text-align:center}
-.ss{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;flex-shrink:0}
+.ss{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;flex-shrink:0;margin-top:4px}
 .sc{background:var(--surface);border:2px solid var(--border);border-radius:var(--r);padding:5px 7px;text-align:center}
 .sc-l{font-family:var(--fd);font-size:var(--fs-sm);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:2px}
 .sc-v{font-family:var(--fd);font-size:var(--fs-lbl);font-weight:700;color:var(--text)}
@@ -322,9 +343,12 @@ body.custom-has-bg[data-theme="custom"] .tp{
 .bkt-spacer{flex-shrink:0}
 
 /* Match card */
-.bkt-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--r);overflow:hidden;flex-shrink:0}
-.bkt-card.bkt-card-my{border-color:rgba(0,212,255,.55)}
-.bkt-card.bkt-card-active{border-color:var(--green);box-shadow:0 0 10px rgba(0,230,118,.2)}
+.bkt-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--r);flex-shrink:0}
+@keyframes bkt-pulse{0%,100%{box-shadow:0 0 0 2px rgba(46,204,113,.9),0 0 8px rgba(46,204,113,.3)}50%{box-shadow:0 0 0 2px rgba(46,204,113,.3),0 0 16px rgba(46,204,113,.1)}}
+@keyframes bkt-pulse-both{0%,100%{box-shadow:0 0 0 2px var(--accent),0 0 0 5px rgba(46,204,113,.9),0 0 10px rgba(46,204,113,.3)}50%{box-shadow:0 0 0 2px var(--accent),0 0 0 5px rgba(46,204,113,.3),0 0 18px rgba(46,204,113,.1)}}
+.bkt-card.bkt-card-my{border-color:var(--accent)}
+.bkt-card.bkt-card-active{border-color:rgba(46,204,113,.8);animation:bkt-pulse 2s ease-in-out infinite}
+.bkt-card.bkt-card-my.bkt-card-active{border-color:var(--accent);animation:bkt-pulse-both 2s ease-in-out infinite}
 .bkt-card-lbl{font-family:var(--fd);font-size:var(--fs-sm);font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text-dim);padding:3px 8px;background:var(--surface2);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
 .bkt-card-score{font-family:var(--fm);font-size:var(--fs-sm);color:var(--text-mid)}
 
@@ -370,7 +394,7 @@ body.custom-has-bg[data-theme="custom"] .tp{
 .setup-logo-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:4px}
 .setup-logo-img{max-height:80px;max-width:240px;object-fit:contain;display:none}
 .setup-logo-img.loaded{display:block}
-.setup-wordmark{font-family:var(--fd);font-size:2.8rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;line-height:1}
+.setup-wordmark{font-family:var(--fd);font-size:2.8rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;line-height:1;display:flex;align-items:center}
 .setup-wordmark em{color:var(--accent);font-style:normal}
 .setup-wordmark .wm-pit{color:var(--text)}
 .setup-wordmark .wm-fusion{color:var(--accent)}
@@ -510,7 +534,8 @@ body.custom-has-bg[data-theme="custom"] .tp{
   color:#0d1e3d;
 }
 
-[data-theme="tj2"] .hdr *{color:#ffffff}
+[data-theme="tj2"] .hdr *:not(svg):not(ellipse):not(circle):not(path){color:#ffffff}
+
 [data-theme="tj2"] .wm-pit{color:#ffffff !important}
 [data-theme="tj2"] .wm-fusion{color:#f5c000 !important}
 /* TJ2 — countdown pill: opaque so yellow is readable over the tye-dye */
@@ -572,8 +597,11 @@ body.custom-has-bg[data-theme="custom"] .tp{
   border-color:rgba(255,255,255,0.18);
 }
 [data-theme="tj2"] .bkt-card.bkt-card-my{
-  border-color:rgba(232,168,0,0.75);
+  border-color:#f5c000;
 }
+@keyframes bkt-pulse-tj2{0%,100%{box-shadow:0 0 0 2px #f5c000,0 0 0 5px rgba(46,204,113,.9),0 0 10px rgba(46,204,113,.3)}50%{box-shadow:0 0 0 2px #f5c000,0 0 0 5px rgba(46,204,113,.3),0 0 18px rgba(46,204,113,.1)}}
+[data-theme="tj2"] .bkt-card.bkt-card-active{border-color:rgba(46,204,113,.8);animation:bkt-pulse 2s ease-in-out infinite}
+[data-theme="tj2"] .bkt-card.bkt-card-my.bkt-card-active{border-color:#f5c000;animation:bkt-pulse-tj2 2s ease-in-out infinite}
 [data-theme="tj2"] .bkt-card-lbl{
   background:rgba(15,45,110,0.95);
   color:rgba(255,255,255,0.85);
@@ -1015,7 +1043,12 @@ body.pit-xl .rt th{ font-size:var(--fs-pit) !important; }
   <div class="setup-card">
     <div class="setup-logo-wrap">
       <img id="setup-logo-img" class="setup-logo-img" alt="Team Logo">
-      <div class="setup-wordmark"><span class="wm-pit">Pit</span><span class="wm-fusion">FUSION</span></div>
+      <div class="setup-wordmark"><span class="wm-pit">Pit</span><span class="wm-fusion">FUSION</span><svg class="setup-atom" viewBox="-24 -24 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <ellipse cx="0" cy="0" rx="22" ry="8" fill="none" stroke="currentColor" stroke-width="2"/>
+  <ellipse cx="0" cy="0" rx="22" ry="8" fill="none" stroke="currentColor" stroke-width="2" transform="rotate(60)"/>
+  <ellipse cx="0" cy="0" rx="22" ry="8" fill="none" stroke="currentColor" stroke-width="2" transform="rotate(120)"/>
+  <circle cx="0" cy="0" r="4.5" fill="currentColor"/>
+</svg></div>
       <div class="setup-sub">FRC Pit Display</div>
     </div>
 
@@ -1075,14 +1108,20 @@ body.pit-xl .rt th{ font-size:var(--fs-pit) !important; }
 <div id="app" style="display:none">
   <div class="hdr">
     <div class="hdr-l">
-      <div class="logo"><span class="wm-pit">Pit</span><span class="wm-fusion">FUSION</span></div>
+      <div class="logo"><span class="wm-pit">Pit</span><span class="wm-fusion">FUSION</span><svg class="logo-atom" viewBox="-24 -24 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <ellipse cx="0" cy="0" rx="22" ry="8" fill="none" stroke="currentColor" stroke-width="2.2"/>
+  <ellipse cx="0" cy="0" rx="22" ry="8" fill="none" stroke="currentColor" stroke-width="2.2" transform="rotate(60)"/>
+  <ellipse cx="0" cy="0" rx="22" ry="8" fill="none" stroke="currentColor" stroke-width="2.2" transform="rotate(120)"/>
+  <circle cx="0" cy="0" r="4.5" fill="currentColor"/>
+</svg></div>
       <div class="hdiv"></div>
       <div class="hdr-ev" id="hdr-ev">&mdash;</div>
     </div>
     <div class="hdr-cd" id="hdr-cd"></div>
     <div class="hdr-r">
+      <button class="help-btn" onclick="document.getElementById('help-overlay').classList.add('show')" title="Data integrity info">?</button>
       <div class="hdr-clk" id="hdr-clk">&mdash;</div>
-      <div id="hdr-delay" style="font-family:var(--fm);font-size:var(--fs-sm);color:var(--text-dim);white-space:nowrap"></div>
+      <div id="hdr-delay"></div>
       <div class="hdr-team" id="hdr-team">&mdash;</div>
       <div class="live-pill"><div class="ldot" id="ldot"></div><span id="ltxt">Live</span></div>
     </div>
@@ -1185,6 +1224,17 @@ body.pit-xl .rt th{ font-size:var(--fs-pit) !important; }
     </div>
     <div class="epa-body" id="epa-body">
       <div class="epa-loading">Select a team to view EPA stats</div>
+    </div>
+  </div>
+
+  <!-- HELP OVERLAY -->
+  <div class="help-overlay" id="help-overlay" onclick="if(event.target===this)this.classList.remove('show')">
+    <div class="help-card">
+      <button class="help-close" onclick="document.getElementById('help-overlay').classList.remove('show')">&#10005;</button>
+      <h2>Data Integrity</h2>
+      <p>PitFUSION fuses data from two independent sources — The Blue Alliance and Nexus FRC — each with its own update schedule, data model, and definition of "current." We reconcile these as best we can, but they don't always agree.</p>
+      <p>Queuing status, bumper colors, and next-match predictions are most likely to drift during Playoffs and Finals, where bracket assignments change in real time and Nexus may briefly stop reporting while a match is in progress.</p>
+      <p>PitFUSION is a situational awareness tool. Always confirm match assignments and bumper colors with your drive coach or the queuing staff at the field.</p>
     </div>
   </div>
 
@@ -1470,7 +1520,7 @@ async function init(){
   await Promise.all([fNexus(),fPits(),fMx(),fRk(),fAlliances(),fTi(),fEv()]);
   document.getElementById('lo').style.display='none';
   renderAll(); startCd();
-  setInterval(async()=>{await Promise.all([fNexus(),fPits()]);rQ();rMl();rAlerts();updateBumperBox();stamp();},15000);
+  setInterval(async()=>{await Promise.all([fNexus(),fPits()]);rQ();rMl();rAlerts();updateBumperBox();stamp();if(bracketView)rBracket();},15000);
   setInterval(async()=>{await Promise.all([fMx(),fRk(),fAlliances(),fTi()]);rMl();rRank();rTeam();if(bracketView)rBracket();updateBumperBox();stamp();},30000);
 }
 
@@ -1481,12 +1531,15 @@ function startCd(){clearInterval(cdTick);cdTick=setInterval(tickCd,1000);tickCd(
 function tickCd(){
   const wrap=document.getElementById('hdr-cd');
   if(!nxData){wrap.innerHTML='';return;}
-  // If Nexus isn't actively queuing, don't show any countdown
+  // If Nexus isn't actively queuing, don't show countdown
   const nowQ=nxData.nowQueuing;
-  if(!nowQ){wrap.innerHTML='';return;}
-  const mx=nxData.matches||[];
-  const DONE = new Set(['Completed','On field','On deck']);
-  const nxt=mx.find(m=>!DONE.has(m.status)&&[...(m.redTeams||[]),...(m.blueTeams||[])].includes(C.team));
+  const mx2=nxData.matches||[];
+  const tickEffNowQ = nowQ;
+  if(!tickEffNowQ){wrap.innerHTML='';return;}
+  const mx=mx2;
+  // Nexus-native: skip Completed and On field
+  const SKIP_CD=new Set(['Completed','On field']);
+  const nxt=mx.find(m=>!SKIP_CD.has(m.status)&&[...(m.redTeams||[]),...(m.blueTeams||[])].includes(C.team));
   if(!nxt){wrap.innerHTML='';return;}
   if(nxt.status==='Now queuing'){
     wrap.innerHTML=`<div class="cd-pill" style="border-color:rgba(255,23,68,.5);background:rgba(255,23,68,.1)"><span class="cd-lbl" style="color:var(--red)">&#x1F6A8; Queue Now!</span><span class="cd-match">${e(nxt.label)}</span><span class="cd-val urg">NOW!</span></div>`;
@@ -1504,97 +1557,74 @@ function tickCd(){
 function rQ(){
   const el=document.getElementById('q-display');
   if(!nxData){el.innerHTML='<div class="not-q">No Nexus data</div>';return;}
-  const mx=nxData.matches||[],_rawNowQ=nxData.nowQueuing;
-  // If Nexus reports a practice match label that doesn't exist in the match list
-  // (e.g. 'Practice 26' when only 25 exist), treat it as not queuing.
-  const nowQ = (_rawNowQ && /^practice/i.test(_rawNowQ) && !mx.find(m=>m.label===_rawNowQ))
-    ? null : _rawNowQ;
 
-  const queuingMatch = nowQ ? mx.find(m=>m.label===nowQ) : null;
-  const deckMatch    = nowQ ? mx.find(m=>m.status==='On deck') : null;
-  // "On Field" -- first check if Nexus explicitly marks any match as On field
-  // (this works during practice rounds when positional logic falls short).
-  // Fall back to the match immediately before nowQueuing in the non-practice schedule.
-  const explicitOnField = [...mx].reverse().find(m=>m.status==='On field');
-  const nonPracticeMx = mx.filter(m=>!/^practice/i.test(m.label));
-  const qIdx = nowQ ? nonPracticeMx.findIndex(m=>m.label===nowQ) : -1;
-  const positionalOnField = qIdx > 0 ? nonPracticeMx[qIdx - 1] : null;
-  const onFieldMatch = explicitOnField || positionalOnField;
+  const mx=nxData.matches||[];
+  const nowQ=nxData.nowQueuing||'';
+  const myT=C.team;
 
-  // Find team's next match (same logic as updateBumperBox)
-  const sm=scoreMap();
+  // ── Nexus-native logic (mirrors Nexus's own example code) ─────────────────
+  // Skip 'Completed' and 'On field' — everything else is a future/current match
+  const SKIP=new Set(['Completed','On field']);
+  const myMxQ=mx.filter(m=>[...(m.redTeams||[]),...(m.blueTeams||[])].includes(myT));
+  const myNext=myMxQ.find(m=>!SKIP.has(m.status))||null;
+
+  // On field / on deck for status strip — use nowQ positionally if statuses stale
+  const activeCount=mx.filter(m=>['On field','On deck','Now queuing'].includes(m.status)).length;
+  const statusReliable=activeCount<=3;
   const allLabels=mx.map(m=>m.label);
   const nowQIdx=nowQ?allLabels.indexOf(nowQ):-1;
-  const isPlayedQ=m=>{
-    if(m.status==='Completed') return true;
-    // Any match with On field or On deck status is either playing or about to play — past us
-    if(m.status==='On field'||m.status==='On deck') return true;
-    // Any match whose position in the list is before OR AT the currently queuing match is played
-    // (the queuing match is for OTHER teams; we want the next one WE are in AFTER nowQ)
-    if(nowQIdx>-1){const i=allLabels.indexOf(m.label);if(i>-1&&i<=nowQIdx)return true;}
-    // If no active queue, use score presence or status to determine played
-    if(!nowQ&&!/^practice/i.test(m.label)){
-      if(!!sm[nl(m.label)]) return true;
-    }
-    return false;
-  };
-  const myMxQ=mx.filter(m=>[...(m.redTeams||[]),...(m.blueTeams||[])].includes(C.team));
-  // When actively queuing, find next unplayed Nexus match AFTER the current queue position.
-  // When on break (nowQ null), fall back to TBA data for next unplayed match.
-  let myNext = nowQ ? myMxQ.find(m=>!isPlayedQ(m)) : null;
-  if(!myNext && tbaMx){
-    // Build next match from TBA — find earliest unplayed match for our team
-    const tbaMyMx = tbaMx
-      .filter(m=>{
-        const r=(m.alliances?.red?.team_keys||[]).map(k=>k.replace('frc',''));
-        const bl=(m.alliances?.blue?.team_keys||[]).map(k=>k.replace('frc',''));
-        return r.includes(C.team)||bl.includes(C.team);
-      })
-      .filter(m=>m.actual_time==null)  // not yet played per TBA
-      .sort((a,b)=>(a.predicted_time||a.time||0)-(b.predicted_time||b.time||0));
+  const deckMatch=statusReliable?mx.find(m=>m.status==='On deck'):null;
+  const explicitOnField=statusReliable?[...mx].reverse().find(m=>m.status==='On field'):null;
+  const positionalOnField=nowQIdx>0?mx[nowQIdx-1]:null;
+  const onFieldMatch=explicitOnField||positionalOnField;
+
+  // TBA fallback for break mode only (nowQ null and no Nexus next match)
+  let myNextFinal=myNext;
+  if(!myNextFinal&&!nowQ&&tbaMx){
+    const tbaMyMx=tbaMx
+      .filter(m=>{const r=(m.alliances?.red?.team_keys||[]).map(k=>k.replace('frc',''));const bl=(m.alliances?.blue?.team_keys||[]).map(k=>k.replace('frc',''));return r.includes(myT)||bl.includes(myT);})
+      .filter(m=>m.actual_time==null)
+      .sort((a,b)=>(a.predicted_time||0)-(b.predicted_time||0));
     if(tbaMyMx.length){
-      // Convert TBA match to Nexus-like shape for display
       const tm=tbaMyMx[0];
       const rk=(tm.alliances?.red?.team_keys||[]).map(k=>k.replace('frc',''));
       const bk=(tm.alliances?.blue?.team_keys||[]).map(k=>k.replace('frc',''));
-      const lvl=tm.comp_level==='qm'?'Qual':tm.comp_level==='sf'?'Playoff':tm.comp_level==='f'?'Final':'Match';
-      myNext={
-        label:`${lvl} ${tm.match_number}`,
-        redTeams:rk, blueTeams:bk,
-        status:'', times:{estimatedQueueTime:tm.predicted_time?(tm.predicted_time-1800)*1000:null}
+      const sfNum=tm.comp_level==='sf'?tm.set_number:tm.match_number;
+      myNextFinal={
+        label:tm.comp_level==='sf'?`Playoff ${sfNum}`:tm.comp_level==='f'?`Final ${tm.match_number}`:`Qual ${tm.match_number}`,
+        redTeams:rk, blueTeams:bk, status:'',
+        times:{estimatedQueueTime:tm.predicted_time?(tm.predicted_time-1800)*1000:null}
       };
     }
   }
 
-  // Expected queue time for myNext
-  const myNextQt=myNext?.times?.estimatedQueueTime||myNext?.times?.actualQueueTime;
+  const myNextQt=myNextFinal?.times?.estimatedQueueTime||myNextFinal?.times?.actualQueueTime;
   const myNextTimeStr=myNextQt?ft(new Date(myNextQt)):null;
 
+  // ── Render ──────────────────────────────────────────────────────────────────
+  const breakBadge=!nowQ?`<div style="font-family:var(--fd);font-size:var(--fs-sm);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--yellow);margin-bottom:4px">⏸ On Break</div>`:'';
+  const statusLbl=nowQ?'Your Next Match':'Your Next Match';
+
   let html='';
-  if(nowQ||myNext){
-    const heading=myNext?e(myNext.label):'&mdash;';
+  if(nowQ||myNextFinal){
+    const heading=myNextFinal?e(myNextFinal.label):'&mdash;';
     const subline=myNextTimeStr
-      ?`<div style="font-family:var(--fd);font-size:var(--fs-lbl);font-weight:700;color:var(--text);margin-top:2px">Est. Queue: ${myNextTimeStr}</div>`
+      ?`<div style="font-family:var(--fd);font-size:var(--fs-lbl);font-weight:700;color:var(--text);margin-top:8px">Est. Queue: ${myNextTimeStr}</div>`
       :'';
-    const statusLbl=nowQ?'Your Next Match':'Your Next Match';
-    const breakBadge=!nowQ?`<div style="font-family:var(--fd);font-size:var(--fs-sm);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--yellow);margin-bottom:4px">⏸ On Break</div>`:'';
     html+=`${breakBadge}<div class="sec-lbl" style="font-size:var(--fs-sm);margin-bottom:2px">${statusLbl}</div><div class="now-q">${heading}</div>${subline}`;
   } else {
     html+=`<div class="not-q">Not queuing</div>`;
   }
 
-  // Alliance grid — show alliances for team's next match
-  if(myNext && (myNext.redTeams?.length || myNext.blueTeams?.length)){
-    const r=myNext.redTeams||[],bl=myNext.blueTeams||[];
-    // Serialize arrays for inline onclick — can't pass array objects directly into HTML strings
+  if(myNextFinal&&(myNextFinal.redTeams?.length||myNextFinal.blueTeams?.length)){
+    const r=myNextFinal.redTeams||[],bl=myNextFinal.blueTeams||[];
     const blJ=JSON.stringify(bl).replace(/"/g,'&quot;');
     const rJ=JSON.stringify(r).replace(/"/g,'&quot;');
-    const mlJ=(myNext?.label||'').replace(/'/g,"\'");
-    const mkAt=(t,side)=>`<div class="a-team${t===C.team?' me':''}" style="cursor:pointer" title="View alliance EPA comparison" onclick="openAllianceEpa(${blJ},${rJ},'${mlJ}')">${e(t)}</div>`;
+    const mlJ=(myNextFinal?.label||'').replace(/'/g,"\\'");
+    const mkAt=(t,side)=>`<div class="a-team${t===myT?' me':''}" style="cursor:pointer" title="View alliance EPA comparison" onclick="openAllianceEpa(${blJ},${rJ},'${mlJ}')">${e(t)}</div>`;
     html+=`<div class="a-row"><div class="a-blk bl"><div class="a-label">Blue</div>${bl.map(t=>mkAt(t,'bl')).join('')}</div><div class="vs">VS</div><div class="a-blk rd"><div class="a-label">Red</div>${r.map(t=>mkAt(t,'rd')).join('')}</div></div>`;
   }
 
-  // 3-column status strip — only when actively queuing
   if(nowQ){
     html+=`<div class="ss">
       <div class="sc"><div class="sc-l">On Field</div><div class="sc-v${onFieldMatch?' on':''}">${onFieldMatch?e(onFieldMatch.label):'&mdash;'}</div></div>
@@ -1605,43 +1635,11 @@ function rQ(){
 
   el.innerHTML=html;
 
-  // Schedule delay — compare estimated start of on-field match to its scheduled start
+  // Schedule delay
   updateScheduleDelay(mx, nowQ);
 
   if(bracketView) syncQueueingToSidebar();
 }
-
-function updateScheduleDelay(mx, nowQ){
-  const el=document.getElementById('hdr-delay');
-  if(!el) return;
-  if(!nowQ||!mx){el.textContent='';return;}
-
-  // Find the match currently on field (most recently started)
-  const candidates=mx.filter(m=>m.times?.actualStartTime||m.times?.estimatedStartTime);
-  if(!candidates.length){el.textContent='';return;}
-
-  // Use the match being queued (nowQ) to get delay: compare estimated vs scheduled
-  const qm=mx.find(m=>m.label===nowQ);
-  if(!qm?.times){el.textContent='';return;}
-
-  const est=qm.times.estimatedStartTime;
-  const sched=qm.times.scheduledStartTime||qm.times.scheduledQueueTime;
-  if(!est||!sched){el.textContent='';return;}
-
-  const delayMs=est-sched;
-  const delayMin=Math.round(delayMs/60000);
-
-  if(Math.abs(delayMin)<1){el.textContent='On time';el.style.color='var(--green)';return;}
-
-  if(delayMin>0){
-    el.textContent=`+${delayMin}m behind`;
-    el.style.color=delayMin>=15?'var(--red)':delayMin>=5?'var(--yellow)':'var(--text-dim)';
-  } else {
-    el.textContent=`${Math.abs(delayMin)}m ahead`;
-    el.style.color='var(--green)';
-  }
-}
-
 // MATCH LIST — no practice, auto-scroll
 function rMl(){
   const el=document.getElementById('ml');
@@ -1658,11 +1656,14 @@ function rMl(){
     const isMe=r.includes(myT)||bl.includes(myT);
     const isAct=['Now queuing','On deck','On field'].includes(m.status);
     const sc=sm[nl(m.label)];
-    // Done if Nexus says Completed, or On field + TBA has score, or On field/On deck + event not actively queuing
+    // Done if Nexus says Completed AND statuses are reliable, or TBA has a score
     const nowQ=nxData?.nowQueuing;
-    const isDn=m.status==='Completed'
-      ||(m.status==='On field'&&(!!sc||!nowQ))
-      ||(m.status==='On deck'&&!nowQ);
+    const mlActiveCount=(nxData?.matches||[]).filter(x=>['On field','On deck','Now queuing'].includes(x.status)).length;
+    const mlStatusReliable=mlActiveCount<=3;
+    const isDn=(m.status==='Completed'&&mlStatusReliable)
+      ||!!sc  // TBA has a score = definitive played signal
+      ||(mlStatusReliable&&m.status==='On field'&&(!!sc||!nowQ))
+      ||(mlStatusReliable&&m.status==='On deck'&&!nowQ);
     const id='mr_'+m.label.replace(/[^a-z0-9]/gi,'_');
     if(isAct) scrollId=id;
     else if(!scrollId&&isMe&&!isDn) scrollId=id;
@@ -1758,6 +1759,30 @@ function mkBadge(m, hasTbaScore) {
 
     return `<span class="badge ${statuses[m.status] || 'bx'}">${label}</span>`;
 }
+function updateScheduleDelay(mx, nowQ){
+  const el=document.getElementById('hdr-delay');
+  if(!el) return;
+  if(!nowQ||!mx){el.textContent='';el.style.cssText='';return;}
+  const qm=mx.find(m=>m.label===nowQ);
+  if(!qm?.times){el.textContent='';el.style.cssText='';return;}
+  const est=qm.times.estimatedStartTime;
+  const sched=qm.times.scheduledStartTime||qm.times.scheduledQueueTime;
+  if(!est||!sched){el.textContent='';el.style.cssText='';return;}
+  const delayMin=Math.round((est-sched)/60000);
+  if(Math.abs(delayMin)<1){
+    el.textContent='On time';
+    el.style.cssText='font-family:var(--fd);font-size:var(--fs-sm);font-weight:700;white-space:nowrap;background:rgba(46,204,113,.15);border:1px solid rgba(46,204,113,.4);color:#2ecc71;border-radius:4px;padding:2px 10px';
+    return;
+  }
+  if(delayMin>0){
+    el.textContent=`+${delayMin}m behind`;
+    el.style.cssText=`font-family:var(--fd);font-size:var(--fs-sm);font-weight:700;white-space:nowrap;border-radius:4px;padding:2px 10px;${delayMin>=15?'background:rgba(231,76,60,.18);border:1px solid rgba(231,76,60,.5);color:#ffffff':'background:rgba(255,214,0,.15);border:1px solid rgba(255,214,0,.4);color:var(--yellow)'}`;
+  } else {
+    el.textContent=`${Math.abs(delayMin)}m ahead`;
+    el.style.cssText='font-family:var(--fd);font-size:var(--fs-sm);font-weight:700;white-space:nowrap;background:rgba(46,204,113,.15);border:1px solid rgba(46,204,113,.4);color:#2ecc71;border-radius:4px;padding:2px 10px';
+  }
+}
+
 function scoreMap(){
   const map={};
   (tbaMx||[]).forEach(m=>{
@@ -2002,23 +2027,20 @@ function rAlerts(){
 
 
 // STREAM
+const YT_KEY = 'AIzaSyDOSE2OGy1Lx9TRXS_qXfLn-BSSwlphVyo';
+
 async function isYouTubeLive(videoId) {
-  // YouTube oEmbed returns metadata including whether the video is a live stream.
-  // If the video is not live / not found it either errors or returns type != 'video'.
-  // We also check the title for FRC-typical indicators, but the key signal is that
-  // a live stream's oEmbed 'html' field contains 'live' in the thumbnail URL or
-  // the request succeeds at all (private/deleted streams fail).
-  // Most reliable no-key approach: fetch the youtube.com/watch page and check for
-  // "isLiveBroadcast" or "hlsManifestUrl" in the inline JSON.
   try {
-    const res = await fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`);
-    if (!res.ok) return false; // deleted, private, or region-blocked
-    // oEmbed succeeds for both live and VOD — but a live stream that hasn't started
-    // yet or has ended will still return 200. We treat any valid response as
-    // "potentially live" and let the embed itself show the live indicator.
-    // Non-existent / private videos throw a 404, so filtering those out is the win.
-    return true;
-  } catch {
+    const res = await fetch(
+      `https://www.googleapis.com/youtube/v3/videos?part=liveStreamingDetails&id=${videoId}&key=${YT_KEY}`,
+      {cache:'no-store'});
+    if (!res.ok) return false;
+    const data = await res.json();
+    const details = data.items?.[0]?.liveStreamingDetails;
+    if (!details) return false;
+    // Currently live = has actualStartTime but no actualEndTime
+    return !!details.actualStartTime && !details.actualEndTime;
+  } catch(e) {
     return false;
   }
 }
@@ -2159,69 +2181,40 @@ function stamp(){document.getElementById('tk-stamp').textContent=new Date().toLo
 function e(s){if(s==null)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 function updateBumperBox() {
-    const box    = document.getElementById('bumper-box');
-    const clear  = () => {
-        box.textContent='—'; box.className='bumper-box';
-        if(bracketView) syncQueueingToSidebar();
-    };
-    if (!nxData) { clear(); return; }
+  const box=document.getElementById('bumper-box');
+  const clear=()=>{box.textContent='—';box.className='bumper-box';if(bracketView)syncQueueingToSidebar();};
+  if(!nxData){clear();return;}
 
-    const myT  = C.team;
-    const mx   = nxData.matches || [];
-    const nowQ = nxData.nowQueuing;
-    const sm   = scoreMap();
+  const myT=C.team;
+  const mx=nxData.matches||[];
 
-    // Build an ordered index of all matches so we can compare positions.
-    // Any match that appears before the currently-queuing match is considered played.
-    const allLabels = mx.map(m=>m.label);
-    const nowQIdx   = nowQ ? allLabels.indexOf(nowQ) : -1;
+  // Nexus-native: skip Completed and On field, find team's next match
+  const SKIP=new Set(['Completed','On field']);
+  const myMx=mx.filter(m=>[...(m.redTeams||[]),...(m.blueTeams||[])].includes(myT));
+  let myNext=myMx.find(m=>!SKIP.has(m.status))||null;
 
-    const isPlayed = m => {
-      if (m.status==='Completed') return true;
-      // If we know the queue position, anything before nowQueuing is done
-      if (nowQIdx > -1) {
-        const mIdx = allLabels.indexOf(m.label);
-        if (mIdx > -1 && mIdx < nowQIdx) return true;
-      }
-      // For non-practice matches also use TBA score / stale-deck logic
-      if (!/^practice/i.test(m.label)) {
-        if (m.status==='On field' && (!!sm[nl(m.label)]||!nowQ)) return true;
-        if (m.status==='On deck'  && !nowQ) return true;
-      }
-      return false;
-    };
-
-    const myMx   = mx.filter(m=>[...(m.redTeams||[]),...(m.blueTeams||[])].includes(myT));
-    let myNext = nowQ ? myMx.find(m=>!isPlayed(m)) : null;
-    // During break, fall back to TBA for next unplayed match
-    if(!myNext && tbaMx){
-      const tbaNext = tbaMx
-        .filter(m=>m.actual_time==null)
-        .filter(m=>{
-          const r=(m.alliances?.red?.team_keys||[]).map(k=>k.replace('frc',''));
-          const bl=(m.alliances?.blue?.team_keys||[]).map(k=>k.replace('frc',''));
-          return r.includes(myT)||bl.includes(myT);
-        })
-        .sort((a,b)=>(a.predicted_time||a.time||0)-(b.predicted_time||b.time||0))[0];
-      if(tbaNext){
-        const rk=(tbaNext.alliances?.red?.team_keys||[]).map(k=>k.replace('frc',''));
-        const bk=(tbaNext.alliances?.blue?.team_keys||[]).map(k=>k.replace('frc',''));
-        myNext={label:'',redTeams:rk,blueTeams:bk};
-      }
+  // TBA fallback during break
+  if(!myNext&&!nxData.nowQueuing&&tbaMx){
+    const tbaNext=tbaMx
+      .filter(m=>m.actual_time==null)
+      .filter(m=>{const r=(m.alliances?.red?.team_keys||[]).map(k=>k.replace('frc',''));const bl=(m.alliances?.blue?.team_keys||[]).map(k=>k.replace('frc',''));return r.includes(myT)||bl.includes(myT);})
+      .sort((a,b)=>(a.predicted_time||0)-(b.predicted_time||0))[0];
+    if(tbaNext){
+      const rk=(tbaNext.alliances?.red?.team_keys||[]).map(k=>k.replace('frc',''));
+      const bk=(tbaNext.alliances?.blue?.team_keys||[]).map(k=>k.replace('frc',''));
+      myNext={label:'',redTeams:rk,blueTeams:bk};
     }
+  }
 
-    // Bumper color — only when actively queuing and we have a next match
-    if (!nowQ || !myNext) {
-        box.textContent='—'; box.className='bumper-box';
-    } else {
-        const isRed  = (myNext.redTeams||[]).includes(myT);
-        const isBlue = (myNext.blueTeams||[]).includes(myT);
-        if (isRed)       { box.textContent='Your Bumper Color: RED';  box.className='bumper-box bumper-red';  }
-        else if (isBlue) { box.textContent='Your Bumper Color: BLUE'; box.className='bumper-box bumper-blue'; }
-        else             { box.textContent='—'; box.className='bumper-box'; }
-    }
+  if(!myNext){clear();return;}
 
-    if(bracketView) syncQueueingToSidebar();
+  const isRed=(myNext.redTeams||[]).includes(myT);
+  const isBlue=(myNext.blueTeams||[]).includes(myT);
+  if(isRed)      {box.textContent='Your Bumper Color: RED'; box.className='bumper-box bumper-red';}
+  else if(isBlue){box.textContent='Your Bumper Color: BLUE';box.className='bumper-box bumper-blue';}
+  else           {clear();return;}
+
+  if(bracketView)syncQueueingToSidebar();
 }
 
 // BRACKET VIEW
@@ -2500,10 +2493,27 @@ function rBracket(){
   // ── Card HTML ─────────────────────────────────────────────────────────────
   function cardHtml(x, y, key, label, note){
     const mx = mxByNum[key];
-    const isActive=(nxData?.matches||[]).some(m=>
-      ['Now queuing','On deck','On field'].includes(m.status)&&
-      (m.label||'').replace(/\s/g,'').toLowerCase()===label.replace(/\s/g,'').toLowerCase()
-    );
+    // Build the Nexus label from the bracket key:
+    // sf1..sf13 → "Playoff 1".."Playoff 13", f1..f4 → "Final 1".."Final 4"
+    const sfNum = key.match(/^sf(\d+)$/i);
+    const fNum  = key.match(/^f(\d+)$/i);
+    const nexusLabel = sfNum ? `Playoff ${sfNum[1]}`
+                     : fNum  ? `Final ${fNum[1]}`
+                     : label;
+    // Use nowQueuing + on-deck/on-field explicitly — statuses can be stale
+    const nq=nxData?.nowQueuing||'';
+    const allMx=nxData?.matches||[];
+    const explicitOnField=allMx.find(m=>m.status==='On field');
+    // Only trust explicit On field if statuses are reliable (not stale from prior event)
+    const bktActiveCount=allMx.filter(m=>['On field','On deck','Now queuing'].includes(m.status)).length;
+    const bktStatusReliable=bktActiveCount<=3;
+    // Positional on-field: one step back from nowQueuing in full match list
+    const nqPos=nq?allMx.findIndex(m=>m.label===nq):-1;
+    const positionalOnField=nqPos>0?allMx[nqPos-1]:null;
+    const onFieldLabel=((bktStatusReliable&&explicitOnField)||positionalOnField)?.label||'';
+    const nl2=nexusLabel.trim().toLowerCase();
+    // Pulse only the on-field match
+    const isActive=onFieldLabel&&onFieldLabel.trim().toLowerCase()===nl2;
     if(!mx){
       return `<div class="bkt-card" style="position:absolute;left:${x}px;top:${y}px;width:${CARD_W}px">
         <div class="bkt-card-lbl">${e(label)}${note?` <span style="opacity:.5;font-size:.85em">${e(note)}</span>`:''}</div>
@@ -2951,7 +2961,7 @@ async function openAllianceEpa(blueTeams, redTeams, matchLabel){
   }
 
   // Helper: draw a multi-team line chart (no event bands needed — single event)
-  function drawAllianceChart(id, teamsList, colors, f){
+  function drawAllianceChart(id, teamsList, colors, f, sharedMin, sharedMax){
     const allPts = teamsList.map((t,ti)=>({
       team:t, color:colors[ti%colors.length],
       pts: buildPts(t,f)
@@ -2966,8 +2976,9 @@ async function openAllianceEpa(blueTeams, redTeams, matchLabel){
     const W=340,H=140,PL=38,PR=42,PT=10,PB=24;
     const cW=W-PL-PR, cH=H-PT-PB;
     const allVals=allPts.flatMap(s=>s.pts.map(p=>p.val));
-    const minV=Math.min(0,...allVals);
-    const maxV=Math.max(...allVals,0.01);
+    // Use shared scale if provided so both alliances are visually comparable
+    const minV=sharedMin!==undefined?sharedMin:Math.min(0,...allVals);
+    const maxV=sharedMax!==undefined?sharedMax:Math.max(...allVals,0.01);
     const xOf=i=>PL+(nPts<=1?cW/2:(i/(nPts-1))*cW);
     const yOf=v=>PT+cH-((v-minV)/(maxV-minV))*cH;
 
@@ -3010,13 +3021,20 @@ async function openAllianceEpa(blueTeams, redTeams, matchLabel){
   let rightHtml = `<div class="alliance-col-hdr red">🔴 Red Alliance<br><span style="font-size:var(--fs-sm);opacity:0.8">${(redTeams||[]).join(' · ')}</span></div>`;
 
   cfgFields.forEach((f,fi)=>{
+    // Compute shared Y scale across both alliances for this field
+    const blueVals=(blueTeams||[]).flatMap(t=>buildPts(t,f).map(p=>p.val));
+    const redVals=(redTeams||[]).flatMap(t=>buildPts(t,f).map(p=>p.val));
+    const allShared=[...blueVals,...redVals];
+    const sharedMin=Math.min(0,...allShared);
+    const sharedMax=Math.max(...allShared,0.01);
+
     leftHtml += `<div style="background:var(--surface);border:2px solid var(--border);border-left:4px solid ${f.color};border-radius:var(--r);padding:8px 10px">
       <div class="alliance-section-hdr">${e(f.label)}</div>
-      ${drawAllianceChart(`ac-b-${fi}`, blueTeams||[], ALLIANCE_BLUE_COLORS, f)}
+      ${drawAllianceChart(`ac-b-${fi}`, blueTeams||[], ALLIANCE_BLUE_COLORS, f, sharedMin, sharedMax)}
     </div>`;
     rightHtml += `<div style="background:var(--surface);border:2px solid var(--border);border-left:4px solid ${f.color};border-radius:var(--r);padding:8px 10px">
       <div class="alliance-section-hdr">${e(f.label)}</div>
-      ${drawAllianceChart(`ac-r-${fi}`, redTeams||[], ALLIANCE_RED_COLORS, f)}
+      ${drawAllianceChart(`ac-r-${fi}`, redTeams||[], ALLIANCE_RED_COLORS, f, sharedMin, sharedMax)}
     </div>`;
   });
 
