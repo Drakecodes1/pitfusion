@@ -6,7 +6,7 @@
 <script src="config.js"></script>
 <script>
 // ── Version ──────────────────────────────────────────────────
-const VERSION = 'V1.8.2';
+const VERSION = 'V1.8.5';
 // ─────────────────────────────────────────────────────────────
 </script>
 <html lang="en">
@@ -254,6 +254,8 @@ body.custom-has-bg[data-theme="custom"] .tp{
 .panel-m::-webkit-scrollbar{width:4px}
 .panel-m::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 .ml{display:flex;flex-direction:column;gap:4px}
+.ml-break{display:flex;align-items:center;gap:8px;padding:5px 10px;color:var(--yellow);font-family:var(--fd);font-size:var(--fs-sm);font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,214,0,.07);border-radius:4px;border-left:3px solid rgba(255,214,0,.4)}
+[data-theme="tj2"] .ml-break{background:rgba(245,192,0,.1);border-left-color:#f5c000}
 .msh{font-family:var(--fd);font-size:var(--fs-lbl);font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--text-dim);padding:10px 0 6px;border-bottom:2px solid var(--border);margin-bottom:6px;display:flex;align-items:center;justify-content:space-between}
 .mc{background:var(--surface2);border:1px solid var(--border2);border-radius:4px;padding:1px 7px;font-family:var(--fm);font-size:var(--fs-sm);color:var(--text-dim)}
 .mr{display:grid;grid-template-columns:220px 1fr auto auto;align-items:center;gap:9px;background:var(--surface);border:2px solid var(--border);border-radius:var(--r);padding:16px 18px;transition:border-color .2s;scroll-margin-top:6px}
@@ -295,15 +297,36 @@ body.custom-has-bg[data-theme="custom"] .tp{
 .tp::-webkit-scrollbar{width:4px}
 .tp::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 .rt{width:100%;border-collapse:collapse}
-.rt th{font-family:var(--fd);font-size:var(--fs-pit);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);padding:0 0 16px;text-align:left;border-bottom:2px solid var(--border)}
+.rt th{font-family:var(--fd);font-size:var(--fs-pit);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);padding:0 0 8px;text-align:left;border-bottom:2px solid var(--border)}
 .rt th:not(:first-child){text-align:right}
-.rt td{padding:18px 0;border-bottom:1px solid rgba(31,34,54,.8);font-size:var(--fs-pit)}
+.rt td{padding:9px 0;border-bottom:1px solid rgba(31,34,54,.8);font-size:var(--fs-pit)}
 .rt td:not(:first-child){text-align:right;font-family:var(--fd);font-size:var(--fs-pit);font-weight:700;color:var(--text-mid)}
 .rp{font-family:var(--fd);font-size:var(--fs-pit);font-weight:700;color:var(--text-dim);min-width:52px;display:inline-block}
 .rn{font-family:var(--fd);font-weight:900;font-size:var(--fs-pit);color:var(--text)}
 .rn.me{color:var(--yellow)}
 .rme{background:rgba(255,214,0,.08)}
 .rme td:not(:first-child){color:var(--text)}
+.upcoming-panel{margin-top:14px}
+.upcoming-hdr{font-family:var(--fd);font-size:var(--fs-pit);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);padding-bottom:8px;border-bottom:2px solid var(--border);margin-bottom:6px}
+.up-row{border-radius:6px;padding:6px 8px;margin-bottom:5px;background:var(--surface)}
+.up-row:nth-child(odd){background:var(--surface2)}
+.up-meta{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
+.up-lbl{font-family:var(--fd);font-size:var(--fs-lbl);font-weight:900;color:var(--text)}
+.up-time{font-family:var(--fm);font-size:var(--fs-sm);color:var(--text-dim);white-space:nowrap}
+.up-teams{display:flex;flex-direction:column;gap:4px}
+.up-alliance{display:flex;gap:4px;flex-wrap:wrap}
+.up-chip{font-family:var(--fd);font-size:var(--fs-lbl);font-weight:700;padding:2px 8px;border-radius:3px;flex:1;text-align:center;min-width:0}
+.up-chip.red{background:rgba(198,40,40,.3);color:#ef9a9a}
+.up-chip.blue{background:rgba(25,118,210,.3);color:#90caf9}
+.up-chip.me{background:var(--accent);color:#000;font-weight:900}
+.up-break{display:flex;align-items:center;gap:8px;padding:5px 8px;margin-bottom:5px;color:var(--yellow);font-family:var(--fd);font-size:var(--fs-sm);font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;background:rgba(255,214,0,.07)}
+[data-theme="tj2"] .up-row{background:rgba(13,30,61,0.7)}
+[data-theme="tj2"] .up-row:nth-child(odd){background:rgba(8,20,48,0.8)}
+[data-theme="tj2"] .up-chip.red{background:rgba(180,30,20,.4);color:#ffaaaa}
+[data-theme="tj2"] .up-chip.blue{background:rgba(20,80,180,.4);color:#aaccff}
+[data-theme="tj2"] .up-chip.me{background:#f5c000;color:#000}
+[data-theme="tj2"] .up-lbl{color:#ffffff}
+[data-theme="tj2"] .upcoming-hdr{color:rgba(255,255,255,0.5)}
 .ic{background:var(--surface2);border:2px solid var(--border2);border-radius:var(--r);padding:11px 13px;margin-bottom:9px}
 .it{font-family:var(--fd);font-size:var(--fs-lbl);font-weight:900;color:var(--text);margin-bottom:2px}
 .is{font-size:var(--fs-sm);color:var(--text-dim);margin-bottom:7px}
@@ -959,7 +982,7 @@ body.pit-xl .chip{ padding:8px 16px !important; }
 /* XL: rankings — only rank number and team number get bigger; W-L-T and RP stay normal */
 body.pit-xl .rn,
 body.pit-xl .rp{ font-size:var(--fs-pit-xl) !important; }
-body.pit-xl .rt td{ padding:22px 0 !important; }
+body.pit-xl .rt td{ padding:11px 0 !important; }
 body.pit-xl .rt td:not(:first-child){ font-size:var(--fs-pit) !important; }
 body.pit-xl .rt th{ font-size:var(--fs-pit) !important; }
 
@@ -1172,6 +1195,10 @@ body.pit-xl .rt th{ font-size:var(--fs-pit) !important; }
       <div class="tp act" id="tab-rankings">
         <div class="sbl" style="margin-top:0">Event Rankings</div>
         <div id="rank-content"><div class="skel" style="width:100%"></div><div class="skel" style="width:78%"></div><div class="skel" style="width:88%"></div></div>
+        <div class="upcoming-panel">
+          <div class="upcoming-hdr">Upcoming</div>
+          <div id="upcoming-content"></div>
+        </div>
       </div>
       <div class="tp" id="tab-team"><div id="team-content"></div></div>
       <div class="tp" id="tab-alerts">
@@ -1520,11 +1547,11 @@ async function init(){
   await Promise.all([fNexus(),fPits(),fMx(),fRk(),fAlliances(),fTi(),fEv()]);
   document.getElementById('lo').style.display='none';
   renderAll(); startCd();
-  setInterval(async()=>{await Promise.all([fNexus(),fPits()]);rQ();rMl();rAlerts();updateBumperBox();stamp();if(bracketView)rBracket();},15000);
+  setInterval(async()=>{await Promise.all([fNexus(),fPits()]);rQ();rMl();rAlerts();rUpcoming();updateBumperBox();stamp();if(bracketView)rBracket();},15000);
   setInterval(async()=>{await Promise.all([fMx(),fRk(),fAlliances(),fTi()]);rMl();rRank();rTeam();if(bracketView)rBracket();updateBumperBox();stamp();},30000);
 }
 
-function renderAll(){rQ();rMl();rRank();rTeam();rAlerts();rStream();updateBumperBox();stamp();}
+function renderAll(){rQ();rMl();rRank();rUpcoming();rTeam();rAlerts();rStream();updateBumperBox();stamp();}
 
 // HEADER COUNTDOWN
 function startCd(){clearInterval(cdTick);cdTick=setInterval(tickCd,1000);tickCd();}
@@ -1673,8 +1700,9 @@ function rMl(){
     let cls='mr';if(isMe)cls+=' my';if(actDisplay)cls+=' act';if(isDn)cls+=' dn';
     return`<div class="${cls}" id="${id}"><div class="ml-lbl">${e(m.label)}</div><div class="ml-teams">${mkC(bl,'cb')}${mkC(r,'cr')}</div>${right}${mkBadge(m,!!sc)}</div>`;
   };
+  const mkBreak=b=>{if(!b)return'';const icon=b==='Lunch'?'🍽':b==='End of day'?'🌙':b==='Awards break'?'🏆':b==='Alliance selection'?'🤝':'⏸';return`<div class="ml-break">${icon} ${e(b)}</div>`;};
 
-  if(quals.length){html+=`<div class="msh">Qualification<span class="mc">${quals.length}</span></div>`;quals.forEach(m=>{html+=mkRow(m);});}
+  if(quals.length){html+=`<div class="msh">Qualification<span class="mc">${quals.length}</span></div>`;quals.forEach(m=>{html+=mkRow(m)+mkBreak(m.breakAfter);});}
 
   // For playoffs: use Nexus matches as base.
   // ONLY supplement with TBA finals matches (comp_level='f') that Nexus doesn't have.
@@ -1702,7 +1730,7 @@ function rMl(){
 
   if(allPffs.length){
     html+=`<div class="msh" style="margin-top:8px">Playoffs<span class="mc">${allPffs.length}</span></div>`;
-    allPffs.forEach(m=>{html+=m._tbaRow||mkRow(m);});
+    allPffs.forEach(m=>{html+=(m._tbaRow||mkRow(m))+mkBreak(m.breakAfter);});
   }
 
   if(!quals.length&&!allPffs.length&&tbaMx?.length){
@@ -1832,6 +1860,47 @@ function rRank(){
     }
     makeTeamsClickable(el.closest('.tp'));
   });
+}
+
+// UPCOMING MATCHES
+function rUpcoming(){
+  const el=document.getElementById('upcoming-content');
+  if(!el) return;
+  const mx=nxData?.matches||[];
+  const myT=C.team;
+  const SKIP=new Set(['Completed','On field']);
+
+  // Get next 3 non-practice matches for my team that haven't been played
+  const upcoming=mx
+    .filter(m=>!/^practice/i.test(m.label)&&!SKIP.has(m.status)&&[...(m.redTeams||[]),...(m.blueTeams||[])].includes(myT))
+    .slice(0,3);
+
+  if(!upcoming.length){el.innerHTML='<div style="color:var(--text-dim);font-size:var(--fs-sm);padding:8px 0">No upcoming matches</div>';return;}
+
+  let html='';
+  upcoming.forEach(m=>{
+    const red=m.redTeams||[], blue=m.blueTeams||[];
+    const t=m.times?.estimatedQueueTime||m.times?.estimatedStartTime;
+    const timeStr=t?new Date(t).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'';
+    // Abbreviate label: "Qualification 13" → "Q13", "Playoff 7" → "P7", "Final 1" → "F1"
+    const lbl=m.label.replace(/^Qualification\s+/i,'Q').replace(/^Playoff\s+/i,'P').replace(/^Final\s+/i,'F').replace(/^Qual\s+/i,'Q');
+    const mkChip=(t,side)=>`<span class="up-chip ${t===myT?'me':side}">${e(t)}</span>`;
+    html+=`<div class="up-row">
+      <div class="up-meta"><span class="up-lbl">${e(lbl)}</span><span class="up-time">${timeStr}</span></div>
+      <div class="up-teams">
+        <div class="up-alliance">${red.map(t=>mkChip(t,'red')).join('')}</div>
+        <div class="up-alliance">${blue.map(t=>mkChip(t,'blue')).join('')}</div>
+      </div>
+    </div>`;
+    // Break after this match?
+    if(m.breakAfter){
+      const icon=m.breakAfter==='Lunch'?'🍽':m.breakAfter==='End of day'?'🌙':m.breakAfter==='Awards break'?'🏆':m.breakAfter==='Alliance selection'?'🤝':'⏸';
+      html+=`<div class="up-break">${icon} ${e(m.breakAfter)}</div>`;
+    }
+  });
+
+  el.innerHTML=html;
+  makeTeamsClickable(el);
 }
 
 // TEAM TAB
