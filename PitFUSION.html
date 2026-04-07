@@ -6,7 +6,7 @@
 <script src="config.js"></script>
 <script>
 // ── Version ──────────────────────────────────────────────────
-const VERSION = 'V1.8.5';
+const VERSION = 'V1.8.6';
 // ─────────────────────────────────────────────────────────────
 </script>
 <html lang="en">
@@ -3639,7 +3639,7 @@ async function checkForUpdate(){
     const current = (typeof VERSION!=='undefined'?VERSION:'').toUpperCase();
     if(!latest||!current) return;
     // Simple semver-style comparison: parse V1.6.9 → [1,6,9]
-    const parse = s=>s.replace(/^V/,'').split('.').map(Number);
+    const parse = s=>s.replace(/^v\.?/i,'').split('.').map(Number);
     const [lMaj,lMin,lPatch=0]=parse(latest);
     const [cMaj,cMin,cPatch=0]=parse(current);
     const newer = lMaj>cMaj||(lMaj===cMaj&&lMin>cMin)||(lMaj===cMaj&&lMin===cMin&&lPatch>cPatch);
