@@ -6,7 +6,7 @@
 <script src="config.js"></script>
 <script>
 // ── Version ──────────────────────────────────────────────────
-const VERSION = 'V1.8.9';
+const VERSION = 'V1.9.0';
 // ─────────────────────────────────────────────────────────────
 </script>
 <html lang="en">
@@ -361,21 +361,21 @@ body.custom-has-bg[data-theme="custom"] .tp{
 .sched-title{font-family:var(--fd);font-size:var(--fs-hdr);font-weight:900;color:var(--accent);letter-spacing:.04em}
 .sched-body{flex:1;overflow-y:auto;padding:var(--pad)}
 .sched-table{width:100%;border-collapse:collapse}
-.sched-table th{font-family:var(--fd);font-size:var(--fs-sm);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);padding:0 10px 10px;text-align:left;border-bottom:2px solid var(--border);white-space:nowrap}
+.sched-table th{font-family:var(--fd);font-size:var(--fs-pit);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);padding:0 10px 10px;text-align:left;border-bottom:2px solid var(--border);white-space:nowrap}
 .sched-table th.right{text-align:right}
-.sched-table td{padding:8px 10px;border-bottom:1px solid var(--border);font-family:var(--fd);font-size:var(--fs-lbl);vertical-align:middle}
+.sched-table td{padding:9px 10px;border-bottom:1px solid rgba(31,34,54,.8);font-family:var(--fd);font-size:var(--fs-pit);vertical-align:middle}
 .sched-table tr.played{opacity:1}
 .sched-table tr.upcoming td{background:rgba(0,212,255,.03)}
-.sched-chip{display:inline-block;font-family:var(--fd);font-size:var(--fs-sm);font-weight:700;padding:2px 7px;border-radius:3px;margin:1px 2px}
+.sched-chip{display:inline-block;font-family:var(--fd);font-size:var(--fs-pit);font-weight:700;padding:2px 7px;border-radius:3px;margin:1px 2px}
 .sched-chip.red{background:rgba(198,40,40,.25);color:#ef9a9a}
 .sched-chip.blue{background:rgba(25,118,210,.25);color:#90caf9}
 .sched-chip.me{background:var(--accent);color:#000;font-weight:900}
-.sched-lbl{font-family:var(--fd);font-size:var(--fs-lbl);font-weight:900;color:var(--text);white-space:nowrap}
-.sched-wlt{font-family:var(--fd);font-size:var(--fs-lbl);font-weight:900;white-space:nowrap}
+.sched-lbl{font-family:var(--fd);font-size:var(--fs-pit);font-weight:900;color:var(--text);white-space:nowrap}
+.sched-wlt{font-family:var(--fd);font-size:var(--fs-pit);font-weight:900;white-space:nowrap}
 .sched-wlt.w{color:var(--green)}
 .sched-wlt.l{color:var(--red-a)}
 .sched-wlt.t{color:var(--yellow)}
-.sched-rp{font-family:var(--fd);font-size:var(--fs-lbl);font-weight:700;color:var(--accent);text-align:right}
+.sched-rp{font-family:var(--fd);font-size:var(--fs-pit);font-weight:700;color:var(--accent);text-align:right}
 .sched-time{font-family:var(--fm);font-size:var(--fs-sm);color:var(--text-dim);white-space:nowrap;text-align:right}
 .sched-break{background:rgba(255,214,0,.07);border-left:3px solid rgba(255,214,0,.5)}
 .sched-break td{color:var(--yellow);font-family:var(--fd);font-size:var(--fs-sm);font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 10px}
@@ -1063,7 +1063,7 @@ body.pit-xl .rt th{ font-size:var(--fs-pit) !important; }
 /* Header text readable on dark navy */
 [data-theme="tj2"] #epa-overlay .epa-title{color:#ffffff}
 [data-theme="tj2"] #epa-overlay .epa-team-num{color:#7ec8ff}
-[data-theme="tj2"] #epa-overlay .epa-close,[data-theme="tj2"] #alliance-overlay .epa-close,[data-theme="tj2"] #pitmap-overlay .epa-close{background:#1a2f50;border-color:rgba(255,255,255,0.3);color:#ffffff}
+[data-theme="tj2"] #epa-overlay .epa-close,[data-theme="tj2"] #alliance-overlay .epa-close,[data-theme="tj2"] #pitmap-overlay .epa-close,[data-theme="tj2"] #schedule-overlay .epa-close{background:#1a2f50;border-color:rgba(255,255,255,0.3);color:#ffffff}
 [data-theme="tj2"] #epa-overlay .epa-close:hover{background:#243f68;color:#ffffff;border-color:rgba(255,255,255,0.6)}
 /* Body surfaces */
 [data-theme="tj2"] .epa-bar-track{background:rgba(255,255,255,0.1)}
@@ -1308,7 +1308,7 @@ body.pit-xl .rt th{ font-size:var(--fs-pit) !important; }
   <!-- SCHEDULE OVERLAY -->
   <div id="schedule-overlay">
     <div class="sched-hdr">
-      <span class="sched-title">📋 My Schedule</span>
+      <span class="sched-title">📋 Our Schedule</span>
       <span id="sched-team-lbl" style="font-family:var(--fd);font-size:var(--fs-lbl);font-weight:700;color:var(--text-dim)"></span>
       <button class="epa-close" onclick="closeSchedule()" style="margin-left:auto">✕ Close</button>
     </div>
@@ -1333,7 +1333,7 @@ body.pit-xl .rt th{ font-size:var(--fs-pit) !important; }
     <button class="s-btn" id="font-size-btn" onclick="togglePitFont()" style="font-size:var(--fs-lbl);padding:5px 16px;font-family:var(--fd);font-weight:700;letter-spacing:.06em">🔤 Bigger Text</button>
     <button class="s-btn" id="stream-toggle-btn" onclick="toggleStreamVisibility()" style="font-size:var(--fs-lbl);padding:5px 16px;font-family:var(--fd);font-weight:700;letter-spacing:.06em">📺 Hide Stream</button>
     <button class="s-btn" id="bracket-toggle-btn" onclick="toggleBracket()" style="font-size:var(--fs-lbl);padding:5px 16px;font-family:var(--fd);font-weight:700;letter-spacing:.06em">🏆 Playoff Bracket</button>
-    <button class="s-btn" onclick="openSchedule()" style="font-size:var(--fs-lbl);padding:5px 16px;font-family:var(--fd);font-weight:700;letter-spacing:.06em">📋 My Schedule</button>
+    <button class="s-btn" onclick="openSchedule()" style="font-size:var(--fs-lbl);padding:5px 16px;font-family:var(--fd);font-weight:700;letter-spacing:.06em">📋 Our Schedule</button>
     <div class="ftr-stamp" id="tk-stamp">&mdash;</div>
   </div>
 </div>
